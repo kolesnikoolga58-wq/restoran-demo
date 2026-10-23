@@ -300,19 +300,20 @@
     .mas { padding-top: 4.25rem; padding-bottom: 1.75rem; gap: var(--v-3); }
     .mas__copy { display: grid; min-height: 0; align-self: end; }
     .mas__one { position: static; grid-area: 1 / 1; align-self: end; gap: var(--v-2); }
+    .mas__head .v-display--md { font-size: clamp(1.6rem, 1.1rem + 1.6vw, 2.4rem); }
     .mas__one .v-display--lg { font-size: clamp(1.8rem, 1.2rem + 1.6vw, 2.5rem); }
     .dish { padding: var(--v-2) 0; }
     .mas__cta { margin-top: var(--v-2); }
   }
   /* Very short windows: the menu keeps only names, prices and the button, so the heading is never covered. */
-  @media (max-height: 560px) {
+  @media (max-height: 600px) {
     .mas { padding-top: 4rem; padding-bottom: 1.25rem; gap: var(--v-2); }
     .mas__one .v-label, .dish span { display: none; }
     .mas__one .v-display--lg { font-size: 1.6rem; }
     .dish { padding: .45rem 0; }
     .mas__cta { margin-top: var(--v-1); }
   }
-  @media (max-width: 860px) and (max-height: 560px) {
+  @media (max-width: 860px) and (max-height: 600px) {
     .mas__fig { display: none; }
     .mas__body { grid-template-rows: auto; }
   }
