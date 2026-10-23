@@ -287,6 +287,14 @@
     .foot { font-size: .95rem; }
     .foot__more { display: none; }
   }
+  /* On phones the menu text takes its own height and the photo gets what is left, so the button is never cut off. */
+  @media (max-width: 860px) {
+    .mas { grid-template-rows: auto minmax(0, 1fr); }
+    .mas__body { grid-template-rows: minmax(5rem, 1fr) auto; }
+    .mas__fig { height: auto; min-height: 5rem; align-self: stretch; }
+    .mas__copy { display: grid; }
+    .mas__one { position: static; grid-area: 1 / 1; align-self: start; }
+  }
   /* On phones and short screens the closing scene is taller than the screen: let it grow so the footer is not cut off. */
   @media (max-width: 860px), (max-height: 760px) {
     #book { height: calc(var(--v-span, 1.3) * 100svh + 40svh); }
