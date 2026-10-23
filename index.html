@@ -287,6 +287,12 @@
     .foot { font-size: .95rem; }
     .foot__more { display: none; }
   }
+  /* On phones and short screens the closing scene is taller than the screen: let it grow so the footer is not cut off. */
+  @media (max-width: 860px), (max-height: 760px) {
+    #book { height: auto; }
+    #book [data-v-stage] { height: auto; min-height: 100svh; overflow: visible; }
+    #book .close { height: auto; min-height: 100svh; }
+  }
 </style>
 </head>
 <body>
