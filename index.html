@@ -1,0 +1,602 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow" data-publish>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>{{company}} · restaurant in {{city}}: menu, events, book a table</title>
+<meta name="description" content="{{company}}, restaurant in {{city}}: the full menu with descriptions, Happy Hour, this week's events, address and map. Book a table in one message.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="{{company}}">
+<meta property="og:title" content="Restaurant in {{city}}: what is on the menu and the board tonight">
+<meta property="og:description" content="The full menu, Happy Hour and this week's events in one place. Book a table in one message.">
+<meta property="og:url" content="{{site-url}}">
+<meta property="og:image" content="{{site-url}}/assets/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preload" as="image" href="assets/hero.webp" fetchpriority="high" media="(min-width: 861px)">
+<link rel="preload" as="image" href="assets/hero-m.webp" fetchpriority="high" media="(max-width: 860px)">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gloock&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Ccircle cx=%2716%27 cy=%2716%27 r=%2712%27 fill=%27none%27 stroke=%27%23c9a15a%27 stroke-width=%273%27/%3E%3Ccircle cx=%2716%27 cy=%2716%27 r=%274%27 fill=%27%23c9a15a%27/%3E%3C/svg%3E">
+<link rel="stylesheet" href="vibe.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Restaurant","name":"{{company}}","description":"Restaurant: full menu with descriptions, Happy Hour, events, table booking.","url":"{{site-url}}","image":"{{site-url}}/assets/og.jpg","telephone":"{{phone}}","openingHours":"{{hours}}","servesCuisine":"{{cuisine}}","hasMenu":"{{site-url}}#menu","acceptsReservations":"True","address":{"@type":"PostalAddress","streetAddress":"{{address}}","addressLocality":"{{city}}"},"sameAs":["{{map-link}}"]}
+</script>
+<style>
+  /* ---- theme: salt linen, kelp green, one display serif, one text sans ----- */
+  .v-page {
+    --v-canvas: #17211f; --v-surface: #202c29;
+    --v-ink: #efe8da; --v-ink-soft: #aeb8b1;
+    --v-accent: #c9a15a; --v-accent-ink: #1b1710;
+    --v-font-display: "Gloock", "Georgia", serif;
+    --v-font-text: "Instrument Sans", "Segoe UI", system-ui, sans-serif;
+    --v-shadow-color: 0 0 0;
+    --v-e1: 0 1px 2px rgb(var(--v-shadow-color) / .08), 0 8px 22px rgb(var(--v-shadow-color) / .10);
+    --v-e2: 0 2px 6px rgb(var(--v-shadow-color) / .10), 0 22px 54px rgb(var(--v-shadow-color) / .16);
+    --v-radius: 6px;
+    --v-display-weight: 400;
+    --v-track-tight: -0.01em;
+    --v-t-xs: clamp(0.8125rem, 0.79rem + 0.15vw, 0.85rem);
+    --v-t-sm: clamp(0.9375rem, 0.9rem + 0.2vw, 1rem);
+    --v-canvas-85: color-mix(in oklab, var(--v-canvas) 85%, transparent);
+    --v-canvas-60: color-mix(in oklab, var(--v-canvas) 60%, transparent);
+    --v-accent-10: color-mix(in oklab, var(--v-accent) 10%, transparent);
+    --hero-ink: #23201a;
+    --hero-wash: rgb(241 233 220 / .6);
+    --hero-pill: rgb(241 233 220 / .88);
+    --hero-card: #faf4ea;
+    --hero-hair: rgb(35 32 26 / .26);
+  }
+  html, body { background: #17211f; }
+  .v-page .v-display { line-height: 1.06; font-weight: 400; letter-spacing: -.005em; }
+  .v-page h3 { font-weight: 400; }
+  .v-page .v-lede { font-weight: 400; }
+  /* labels read as plain small text, not tracked capitals */
+  .v-page .v-label { text-transform: none; letter-spacing: 0; font-weight: 500; font-size: var(--v-t-sm); }
+  .v-page .v-btn { font-size: var(--v-t-base); font-weight: 600; }
+  @media (max-width: 860px) {
+    .hero__tel, .rows p, .turn__text, .poka__fig figcaption, .shift__win span, .shift__win em, .clock, .dish span, .plist .note, .incl li span,
+    .fact span, .close__hint, .close__meta, .foot { font-size: .95rem; }
+    .v-page .v-label { font-size: .9375rem; }
+  }
+
+  /* ---- bar ---------------------------------------------------------------- */
+  .bar { position: fixed; inset: 0 0 auto 0; z-index: 30; display: flex; align-items: center; justify-content: space-between;
+    padding: var(--v-3) var(--v-gutter); gap: var(--v-4);
+    background: linear-gradient(to bottom, color-mix(in oklab, var(--v-canvas) 94%, transparent), transparent);
+    transition: background-color .3s var(--v-ease-out), box-shadow .3s var(--v-ease-out); }
+  .bar.is-scrolled { background: var(--v-canvas-85); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); box-shadow: 0 1px 0 var(--v-hair); }
+  .bar__mark { font-family: var(--v-font-display); font-size: 1.2rem; text-decoration: none; display: inline-flex; align-items: center; gap: .6em; min-height: 44px; white-space: nowrap; }
+  .bar__mark i { width: .95em; height: .95em; border-radius: 50%; box-shadow: inset 0 0 0 2px var(--v-accent); position: relative; display: inline-block; }
+  .bar__mark i::after { content: ""; position: absolute; inset: 28%; border-radius: 50%; background: var(--v-accent); }
+  .bar__right { display: flex; align-items: center; gap: var(--v-5); }
+  .bar__link, .bar__tel { text-decoration: none; font-weight: 500; font-size: var(--v-t-sm); color: var(--v-ink); display: inline-flex; align-items: center; min-height: 44px; padding: 0 var(--v-1); }
+  @media (max-width: 760px) {
+    .bar__tel { display: none; }
+    .bar .v-btn { padding: 0 1em; min-height: 44px; font-size: .95rem; }
+    .bar__right { gap: var(--v-3); }
+  }
+  @media (max-width: 860px) { .bar.is-scrolled { background: color-mix(in oklab, var(--v-canvas) 96%, transparent); } }
+
+  /* ---- act 1 · hero: the dining room moves from morning to evening, the menu on offer follows ---- */
+  .hero__photo { position: absolute; inset: 0; overflow: hidden; --hx: 62%; --hy: 50%; }
+  .hero__stack img { position: absolute; max-width: none; left: 0; top: -4%; width: 100%; height: 108%; object-fit: cover; object-position: var(--hx) var(--hy); }
+  /* light is not palette: cool morning window light fades out, warm lamp light for the evening comes in */
+  .hero__light { position: absolute; inset: 0; z-index: 1; pointer-events: none; mix-blend-mode: multiply; }
+  .hero__light--morning { background: linear-gradient(100deg, rgb(178 196 216 / .6) 0%, rgb(178 196 216 / .28) 40%, rgb(178 196 216 / .08) 70%, transparent 100%);
+    opacity: calc(1 - clamp(0, var(--v-p, 0) / .3, 1)); }
+  .hero__light--eve { background: linear-gradient(262deg, rgb(255 168 84 / .74) 0%, rgb(255 186 112 / .4) 42%, rgb(226 186 150 / .2) 72%, rgb(190 160 140 / .18) 100%),
+      radial-gradient(120% 90% at 66% 46%, transparent 48%, rgb(70 44 30 / .32) 100%);
+    opacity: clamp(0, (var(--v-p, 0) - .5) / .35, 1); }
+  .hero__wash { position: absolute; inset: 0; z-index: 2; pointer-events: none; background: linear-gradient(to right, var(--hero-wash) 0%, transparent 46%); }
+  .hero__copy, .hero__note, .shift, .clock { color: var(--hero-ink); }
+  .hero__copy .v-lede, .hero__label, .hero__note .v-label, .shift .v-label, .shift__cta span, .shift__desc, .clock__time i, .clock__lbl { color: color-mix(in oklab, var(--hero-ink) 78%, transparent); }
+  .hero__copy { bottom: clamp(7rem, 18vh, 12rem); max-width: min(44rem, 86vw); }
+  .hero__label { display: block; margin-bottom: var(--v-4); }
+  .hero__copy .v-display { font-size: clamp(2.3rem, 1.2rem + 3vw, 4rem); line-height: 1.02; }
+  .hero__copy .v-lede { margin-top: var(--v-5); max-width: 40ch; }
+  .hero__cta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--v-4) var(--v-6); margin-top: var(--v-6); }
+  .hero__tel { text-decoration: none; color: inherit; font-size: var(--v-t-sm); display: inline-flex; align-items: center; min-height: 44px; gap: .35em; }
+  .hero__tel b { font-weight: 600; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .18em; }
+  .hero__note { position: absolute; z-index: 3; right: var(--v-gutter); top: clamp(5rem, 14vh, 9rem); text-align: right; display: grid; gap: .3em; font-size: var(--v-t-sm); }
+  .hero__note .v-nums { font-family: var(--v-font-display); font-size: var(--v-t-lg); }
+
+  .shift { position: absolute; z-index: 3; left: var(--v-gutter); bottom: clamp(7rem, 18vh, 12rem); max-width: min(40rem, 86vw); display: grid; gap: var(--v-4); }
+  .shift .v-display--md { font-size: clamp(1.7rem, 1.1rem + 1.7vw, 2.7rem); }
+  .shift__list { display: grid; margin-top: var(--v-2); }
+  .shift__win { --on: clamp(0, min((var(--v-p, 0) - var(--a)) * 10 + 1, (var(--b) - var(--v-p, 0)) * 10 + 1), 1);
+    display: grid; grid-template-columns: 6rem 1fr auto; gap: .15em var(--v-4); align-items: baseline; padding: var(--v-3); margin: 0 calc(-1 * var(--v-3)); border-top: 1px solid var(--hero-hair);
+    border-radius: var(--v-radius); background: color-mix(in oklab, var(--hero-card) calc(var(--on) * 100%), transparent);
+    box-shadow: 0 8px 22px rgb(var(--v-shadow-color) / calc(var(--on) * .12)); }
+  .shift__win:last-child { border-bottom: 1px solid var(--hero-hair); }
+  .shift__when { grid-column: 1; grid-row: 1 / span 2; font-family: var(--v-font-display); font-size: var(--v-t-base); display: flex; align-items: center; gap: .5em; opacity: calc(.55 + .45 * var(--on)); }
+  .shift__when i { width: .55em; height: .55em; border-radius: 50%; background: var(--v-accent); transform: scale(calc(.3 + .7 * var(--on))); opacity: var(--on); }
+  .shift__win b { grid-column: 2; grid-row: 1; font-weight: 600; opacity: calc(.7 + .3 * var(--on)); }
+  .shift__desc { grid-column: 2; grid-row: 2; font-size: var(--v-t-sm); }
+  .shift__win em { grid-column: 3; grid-row: 1 / span 2; font-style: normal; font-weight: 600; font-size: var(--v-t-sm); white-space: nowrap; align-self: start; }
+  .shift__cta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--v-3) var(--v-5); margin-top: var(--v-2); }
+  .shift__cta span { font-size: var(--v-t-sm); max-width: 30ch; text-wrap: pretty; }
+
+  .clock { position: absolute; z-index: 3; left: var(--v-gutter); right: var(--v-gutter); bottom: clamp(1.5rem, 4vh, 3rem); display: grid; grid-template-columns: auto 1fr; align-items: center; gap: var(--v-4); font-size: var(--v-t-sm); }
+  .clock__time { display: inline-flex; align-items: baseline; gap: .5em; padding: .45em .8em; border-radius: 999px; background: var(--hero-pill); box-shadow: 0 0 0 1px var(--hero-hair); }
+  .clock__time b { font-family: var(--v-font-display); font-weight: 400; font-size: var(--v-t-base); font-variant-numeric: tabular-nums; }
+  .clock__time i { font-style: normal; }
+  .clock__rule { position: relative; height: 1.4rem; }
+  .clock__rule::before { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: var(--hero-hair); }
+  .clock__ticks { position: absolute; inset: 0; display: flex; justify-content: space-between; }
+  .clock__ticks i { width: 1px; height: 100%; background: var(--hero-hair); transform: scaleY(.45); }
+  .clock__ticks i:first-child, .clock__ticks i:last-child { transform: none; }
+  .clock__mark { position: absolute; top: 50%; left: calc(var(--v-p, 0) * 100%); width: 11px; height: 11px; margin: -5.5px 0 0 -5.5px; border-radius: 50%; background: var(--v-accent); box-shadow: 0 0 0 3px var(--hero-pill); text-decoration: none; }
+  .clock__fill { position: absolute; left: 0; top: 50%; height: 1px; width: calc(var(--v-p, 0) * 100%); background: var(--v-accent); }
+  .clock__lbl { position: absolute; top: 100%; margin-top: .2em; font-size: var(--v-t-xs); font-variant-numeric: tabular-nums; }
+  .clock__lbl--close { right: 0; }
+  .clock .clock__lbl { padding: .05em .5em; border-radius: 999px; background: var(--hero-pill); color: var(--hero-ink); }
+  @media (max-width: 860px) {
+    .hero__photo { top: auto; height: 46svh; --hx: 50%; --hy: 50%; }
+    .hero__wash { display: none; }
+    /* on phones the text sits on the page background, not on the photo: use page colours (the clock stays on the photo) */
+    .hero__copy, .shift { --hero-ink: var(--v-ink); --hero-card: var(--v-surface); --hero-hair: var(--v-hair-strong); }
+    .v-page .hero__copy { top: 5rem; bottom: auto; max-width: none; }
+    .hero__copy .v-display { font-size: clamp(1.7rem, 1.1rem + 2.6vw, 2.15rem); }
+    .hero__copy .v-lede { font-size: var(--v-t-base); margin-top: var(--v-4); max-width: none; }
+    .hero__label { margin-bottom: var(--v-3); }
+    .hero__cta { margin-top: var(--v-5); gap: var(--v-2) var(--v-5); }
+    .hero__note { display: none; }
+    .shift { top: 4.6rem; bottom: auto; right: var(--v-gutter); max-width: none; gap: var(--v-2); }
+    .shift .v-display--md { font-size: var(--v-t-lg); }
+    .shift__list { margin-top: 0; }
+    .shift__win { grid-template-columns: 4.6rem 1fr auto; padding: var(--v-2); margin: 0 calc(-1 * var(--v-2)); }
+    .shift__desc { display: none; }
+    .shift__cta { margin-top: var(--v-2); gap: var(--v-2) var(--v-4); }
+    .shift__cta span { display: none; }
+    .clock { bottom: 1.25rem; gap: var(--v-3); }
+    .clock__rule { height: 1.1rem; }
+    .clock__lbl { display: none; }
+  }
+  @media (max-width: 600px) and (max-height: 700px) { .hero__photo { height: 40svh; } .hero__copy .v-lede { display: none; } }
+
+  /* ---- act 2 · before you arrive ----------------------------------------- */
+  .poka__head { display: grid; gap: var(--v-3); margin-bottom: var(--v-7); max-width: 56rem; }
+  .poka__head .v-display--lg { font-size: clamp(2rem, 1.2rem + 2.4vw, 3.4rem); }
+  .poka__grid { display: grid; grid-template-columns: minmax(0, .95fr) minmax(0, 1.05fr); gap: var(--v-8) var(--v-9); align-items: start; }
+  .poka__fig { position: relative; border-radius: var(--v-radius); overflow: hidden; box-shadow: var(--v-e2); aspect-ratio: 4 / 3; background: var(--v-surface); }
+  .poka__fig img { width: 100%; height: 100%; object-fit: cover; }
+  .poka__fig figcaption { position: absolute; left: var(--v-4); right: var(--v-4); bottom: var(--v-4); z-index: 1; font-size: var(--v-t-sm); color: var(--v-ink); max-width: 40ch;
+    padding: .6em .9em; border-radius: var(--v-radius); background: var(--v-canvas-85); box-shadow: 0 0 0 1px var(--v-hair); }
+  .rows li { padding: var(--v-5) 0; border-top: 1px solid var(--v-hair); display: grid; gap: var(--v-1); }
+  .rows li:last-child { border-bottom: 1px solid var(--v-hair); }
+  .rows h3 { font-family: var(--v-font-display); font-size: var(--v-t-lg); line-height: 1.15; text-wrap: balance; }
+  .rows p { color: var(--v-ink-soft); max-width: 48ch; text-wrap: pretty; }
+  .turn { margin-top: var(--v-6); padding: var(--v-6); border-radius: var(--v-radius); background: var(--v-surface); box-shadow: var(--v-e1); display: grid; gap: var(--v-3); }
+  .turn__text { font-size: var(--v-t-lg); line-height: 1.35; text-wrap: pretty; }
+  .turn__text b { font-weight: 600; }
+  @media (max-width: 860px) {
+    .poka__head { margin-bottom: var(--v-6); }
+    .poka__grid { grid-template-columns: 1fr; gap: var(--v-6); }
+    .turn { padding: var(--v-5); }
+    .rows h3 { font-size: var(--v-t-base); }
+  }
+
+  /* ---- act 3 · menu: three courses side by side, the dish photo follows ---- */
+  .mas { height: 100%; display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: auto 1fr; padding: clamp(4.5rem, 11vh, 6.5rem) var(--v-gutter) clamp(2rem, 6vh, 4rem); gap: var(--v-5); }
+  .mas__head { display: grid; grid-template-columns: 1fr auto; align-items: end; gap: var(--v-6); }
+  .mas__head .v-label { display: block; margin-bottom: var(--v-3); }
+  .mas__head .v-display--md { font-size: clamp(1.8rem, 1.2rem + 2.1vw, 3rem); }
+  .mas__index { list-style: none; margin: 0; padding: 0; display: flex; gap: var(--v-3); font-family: var(--v-font-display); font-size: var(--v-t-sm); font-variant-numeric: tabular-nums; }
+  .mas__index li { --on: clamp(0, min((var(--v-p, 0) - var(--a)) * 10 + 1, (var(--b) - var(--v-p, 0)) * 10 + 1), 1);
+    width: 2.6rem; height: 2.6rem; display: grid; place-items: center; border-radius: 50%; box-shadow: inset 0 0 0 1px var(--v-hair-strong);
+    background: color-mix(in oklab, var(--v-accent) calc(var(--on) * 100%), transparent); color: color-mix(in oklab, var(--v-accent-ink) calc(var(--on) * 100%), var(--v-ink-soft)); }
+  .mas__body { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); gap: var(--v-9); align-items: center; min-height: 0; }
+  .mas__copy { position: relative; min-height: 26rem; }
+  .mas__one { position: absolute; inset: auto 0 0 0; display: grid; gap: var(--v-3); max-width: 42rem; }
+  .mas__one .v-label { color: var(--v-ink-soft); }
+  .mas__one .v-display--lg { font-size: clamp(2.1rem, 1.3rem + 2.6vw, 3.7rem); }
+  .dishes { display: grid; margin-top: var(--v-2); }
+  .dish { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: .1em var(--v-5); padding: var(--v-3) 0; border-top: 1px solid var(--v-hair); align-items: baseline; }
+  .dish:last-child { border-bottom: 1px solid var(--v-hair); }
+  .dish b { font-family: var(--v-font-display); font-weight: 400; font-size: var(--v-t-lg); line-height: 1.15; }
+  .dish em { font-style: normal; font-weight: 600; font-size: var(--v-t-sm); color: var(--v-ink-soft); grid-row: 1; grid-column: 2; white-space: nowrap; }
+  .dish span { grid-column: 1 / span 2; color: var(--v-ink-soft); font-size: var(--v-t-sm); max-width: 52ch; }
+  .mas__cta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--v-3) var(--v-5); margin-top: var(--v-3); }
+  .mas__fig { position: relative; justify-self: end; width: min(100%, calc((100svh - 17rem) * .75), 30rem); aspect-ratio: 3 / 4; }
+  .mas__fig figure { position: absolute; inset: 0; border-radius: var(--v-radius); overflow: hidden; box-shadow: var(--v-e2); background: var(--v-surface); }
+  .mas__fig img { width: 100%; height: 100%; object-fit: cover; }
+  @media (max-width: 860px) {
+    .mas { padding-top: 4.5rem; gap: var(--v-4); }
+    .mas__head { align-items: center; }
+    .mas__head .v-display--md { font-size: var(--v-t-xl); }
+    .mas__head .v-label { margin-bottom: var(--v-1); }
+    .mas__index li { width: 2.1rem; height: 2.1rem; }
+    .mas__body { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto 1fr; gap: var(--v-4); align-items: start; }
+    .mas__fig { order: -1; justify-self: start; width: 100%; aspect-ratio: auto; height: 26svh; }
+    .mas__copy { min-height: 0; }
+    .mas__one { inset: 0 0 auto 0; gap: var(--v-2); }
+    .mas__one .v-display--lg { font-size: var(--v-t-xl); }
+    .dish { padding: var(--v-2) 0; }
+    .dish b { font-size: var(--v-t-base); }
+    .dish span { display: none; }
+    .mas__cta { margin-top: var(--v-2); }
+  }
+
+  /* ---- act 4 · on the board: happy hour and events ------------------------ */
+  .prices { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, .6fr); gap: var(--v-9); align-items: start; }
+  .prices__head { display: grid; gap: var(--v-3); max-width: 46rem; margin-bottom: var(--v-6); }
+  .plist li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: var(--v-1) var(--v-6); align-items: baseline; padding: var(--v-5) 0; border-top: 1px solid var(--v-hair); }
+  .plist li:last-child { border-bottom: 1px solid var(--v-hair); }
+  .plist .name { grid-row: 1; grid-column: 1; font-family: var(--v-font-display); font-size: var(--v-t-xl); line-height: 1.15; }
+  .plist .time { grid-row: 1; grid-column: 2; font-weight: 600; font-size: var(--v-t-sm); white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .plist .note { grid-row: 2; grid-column: 1 / span 2; font-size: var(--v-t-sm); color: var(--v-ink-soft); max-width: 60ch; text-wrap: pretty; }
+  .prices__aside { position: sticky; top: clamp(5rem, 12vh, 7rem); }
+  .incl { padding: var(--v-6); border-radius: var(--v-radius); background: var(--v-surface); box-shadow: var(--v-e2); display: grid; gap: var(--v-4); }
+  .incl li { padding: var(--v-3) 0; border-top: 1px solid var(--v-hair); display: grid; gap: .2em; }
+  .incl li:last-child { border-bottom: 1px solid var(--v-hair); }
+  .incl li b { font-weight: 600; }
+  .incl li span { font-size: var(--v-t-sm); color: var(--v-ink-soft); }
+  .incl .cta { display: flex; flex-wrap: wrap; gap: var(--v-3); align-items: center; }
+  @media (max-width: 1100px) { .prices { grid-template-columns: minmax(0, 1.3fr) minmax(0, .8fr); gap: var(--v-7); } }
+  @media (max-width: 860px) {
+    .prices { grid-template-columns: 1fr; gap: var(--v-7); }
+    .prices__aside { position: static; }
+    .incl { padding: var(--v-5); }
+    .plist .name { font-size: var(--v-t-lg); }
+    .plist li { grid-template-columns: minmax(0, 1fr); }
+    .plist .time { grid-row: 2; grid-column: 1; }
+    .plist .note { grid-row: 3; grid-column: 1; }
+  }
+
+  /* ---- act 5 · inside: the room after dark ------------------------------- */
+  .atm__fig { position: relative; aspect-ratio: 21 / 9; border-radius: var(--v-radius); overflow: hidden; box-shadow: var(--v-e2); background: var(--v-surface); margin-bottom: var(--v-8); }
+  .atm__fig .v-layer { inset: -18% 0; }
+  .atm__fig img { width: 100%; height: 100%; left: 0; top: 0; object-fit: cover; object-position: 50% 62%; }
+  .atm { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: var(--v-7) var(--v-9); align-items: start; }
+  .atm__head { display: grid; gap: var(--v-3); position: sticky; top: clamp(5rem, 12vh, 7rem); }
+  .atm__head p { color: var(--v-ink-soft); max-width: 34ch; text-wrap: pretty; }
+  .fact { padding: var(--v-5) 0; border-top: 1px solid var(--v-hair); display: grid; grid-template-columns: minmax(0, .5fr) minmax(0, 1fr); gap: var(--v-2) var(--v-6); align-items: baseline; }
+  .fact:last-child { border-bottom: 1px solid var(--v-hair); }
+  .fact b { font-family: var(--v-font-display); font-weight: 400; font-size: var(--v-t-lg); line-height: 1.15; }
+  .fact span { color: var(--v-ink-soft); text-wrap: pretty; max-width: 48ch; }
+  @media (max-width: 860px) {
+    .atm__fig { aspect-ratio: 4 / 3; margin-bottom: var(--v-6); }
+    .atm { grid-template-columns: 1fr; gap: var(--v-5); }
+    .atm__head { position: static; }
+    .fact { grid-template-columns: 1fr; gap: var(--v-1); }
+    .fact b { font-size: var(--v-t-base); }
+  }
+
+  /* ---- act 6 · book (the closing scene keeps its line, footer inside) ----- */
+  .close { height: 100%; display: grid; grid-template-rows: 1fr auto; padding: 0 var(--v-gutter);
+    background: radial-gradient(60rem 40rem at calc(var(--v-mx, .5) * 100%) calc(var(--v-my, .5) * 100%), var(--v-accent-10), transparent 60%); }
+  .close__inner { align-self: center; display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, .8fr); gap: var(--v-8); align-items: end; padding-top: var(--v-9); }
+  .close__inner .v-display { margin-bottom: var(--v-5); }
+  .close__inner .v-lede { max-width: 40ch; }
+  .close__cta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--v-4) var(--v-6); margin-top: var(--v-6); }
+  .close__tel { font-family: var(--v-font-display); font-size: var(--v-t-xl); text-decoration: none; display: inline-flex; align-items: center; min-height: 44px; color: var(--v-ink); }
+  .close .close__hint { margin-top: var(--v-6); font-size: var(--v-t-sm); color: var(--v-ink-soft); max-width: 46ch; }
+  .close__meta { display: grid; gap: var(--v-4); color: var(--v-ink-soft); font-size: var(--v-t-sm); }
+  .close__meta b { color: var(--v-ink); font-weight: 600; display: block; margin-bottom: .1em; }
+  .close__meta a { color: var(--v-ink); display: inline-flex; align-items: center; min-height: 44px; }
+  .foot { display: flex; justify-content: space-between; gap: var(--v-4); padding: var(--v-6) 0; border-top: 1px solid var(--v-hair); font-size: var(--v-t-xs); color: var(--v-ink-soft); flex-wrap: wrap; }
+  @media (max-width: 860px) {
+    .close { padding-bottom: env(safe-area-inset-bottom); }
+    .close__inner { grid-template-columns: 1fr; gap: var(--v-6); padding-top: var(--v-8); align-items: start; }
+    .close__tel { font-size: var(--v-t-lg); }
+    .foot { font-size: .95rem; }
+    .foot__more { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="v-page">
+  <span data-v-progress></span>
+
+  <header class="bar">
+    <a class="bar__mark" href="#top"><i aria-hidden="true"></i>{{company}}</a>
+    <nav class="bar__right" aria-label="Quick links">
+      <a class="bar__link" href="#menu">Menu</a>
+      <a class="bar__tel" href="tel:{{phone}}">{{phone}}</a>
+      <a class="v-btn" href="{{booking-link}}" target="_blank" rel="noopener">Book a table</a>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- 1 · RECOGNITION and PROMISE: the dining room moves from morning to evening, the menu on offer follows -->
+    <section id="top" data-v-act="pin" data-v-span="3" data-v-drift="#17211f" aria-label="Restaurant: menu and table booking">
+      <div data-v-stage class="hero">
+        <div class="hero__photo">
+          <div class="v-layer hero__stack" data-v-parallax="-0.25">
+            <picture>
+              <source media="(max-width: 860px)" srcset="assets/hero-m.webp">
+              <img class="hero__img" src="assets/hero.webp" alt="" width="1920" height="1080" fetchpriority="high">
+            </picture>
+          </div>
+          <div class="hero__light hero__light--morning" aria-hidden="true"></div>
+          <div class="hero__light hero__light--eve" aria-hidden="true"></div>
+          <div class="hero__wash" aria-hidden="true"></div>
+        </div>
+
+        <div class="hero__note" data-v-cue="0 1 0 0" data-v-rise="0">
+          <span class="v-label">Open today</span>
+          <span class="v-nums">{{hours}}</span>
+        </div>
+
+        <div class="v-copy v-copy--lead hero__copy" data-v-cue="0 0.3 0 0.08">
+          <span class="v-label hero__label">Menu, Happy Hour and events</span>
+          <h1 class="v-display v-display--xl" data-v-kinetic="lines">Restaurant in {{city}}: what is on the menu and the board tonight</h1>
+          <p class="v-lede">Dishes, Happy Hour and this week's events in one place. Opens fast on your phone.</p>
+          <div class="hero__cta">
+            <a class="v-btn" href="{{booking-link}}" target="_blank" rel="noopener">Book a table</a>
+            <a class="hero__tel" href="#menu">or view the <b>menu</b></a>
+          </div>
+        </div>
+
+        <div class="shift" data-v-cue="0.3 1 0.08 0">
+          <div>
+            <span class="v-label">Through the day</span>
+            <h2 class="v-display v-display--md">Morning, midday or evening: the table is set for each</h2>
+          </div>
+          <ol class="shift__list">
+            <li class="shift__win" style="--a: 0; --b: .34">
+              <span class="shift__when"><i aria-hidden="true"></i>Morning</span>
+              <b>Coffee and something light</b>
+              <span class="shift__desc">Start the day at a table by the window.</span>
+              <em class="v-nums">{{time}}</em>
+            </li>
+            <li class="shift__win" style="--a: .33; --b: .67">
+              <span class="shift__when"><i aria-hidden="true"></i>Midday</span>
+              <b>Lunch from the main menu</b>
+              <span class="shift__desc">Starters, mains and drinks, all on the menu below.</span>
+              <em class="v-nums">{{time}}</em>
+            </li>
+            <li class="shift__win" style="--a: .66; --b: 1">
+              <span class="shift__when"><i aria-hidden="true"></i>Evening</span>
+              <b>Dinner, bar and Happy Hour</b>
+              <span class="shift__desc">Lamps on, bar open, events on the board.</span>
+              <em class="v-nums">{{time}}</em>
+            </li>
+          </ol>
+          <div class="shift__cta">
+            <a class="v-btn" href="{{booking-link}}" target="_blank" rel="noopener">Book a table</a>
+            <span>Send the day, time and number of guests. We confirm the table.</span>
+          </div>
+        </div>
+
+        <div class="clock" aria-hidden="true" data-open="9" data-close="22">
+          <span class="clock__time"><b data-clock>09:00</b><i data-daypart>morning</i></span>
+          <div class="clock__rule">
+            <div class="clock__ticks"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+            <span class="clock__fill"></span>
+            <s class="clock__mark"></s>
+            <span class="clock__lbl" data-open-label>09:00</span>
+            <span class="clock__lbl clock__lbl--close" data-close-label>22:00</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2 · COST OF NOT KNOWING and TURN: the menu comes first -->
+    <section class="v-section v-section--tight" data-v-act="flow" data-v-drift="#1c2926" id="before" aria-label="Why see the menu first">
+      <div class="v-wrap">
+        <div class="poka__head" data-v-in data-v-stagger="70">
+          <span class="v-label">Usually you find out at the door</span>
+          <h2 class="v-display v-display--lg">Menu, prices and tonight's plan, before you leave home</h2>
+        </div>
+        <div class="poka__grid">
+          <figure class="poka__fig" data-v-reveal="left" data-v-reveal-at="0.22 0.55">
+            <img src="assets/hall.webp" srcset="assets/hall-900.webp 900w, assets/hall.webp 1600w" sizes="(max-width: 860px) 100vw, 36rem" alt="Restaurant dining room in the early evening: round tables, lamps just switched on, a long bar at the back" width="1600" height="1200" loading="lazy" decoding="async">
+            <figcaption>The dining room, set for the evening.</figcaption>
+          </figure>
+          <div>
+            <ul class="rows" data-v-in data-v-stagger="80">
+              <li><h3>A menu you have to zoom into</h3><p>A PDF on a small screen, with no prices or no descriptions. You still do not know what to order.</p></li>
+              <li><h3>Nobody says what is on tonight</h3><p>Happy Hour, a music evening, a special dish: you hear about it from the waiter, when it is too late to plan.</p></li>
+              <li><h3>A site that crawls on mobile</h3><p>You look for the address standing outside, on one bar of signal. The page takes a minute to open.</p></li>
+            </ul>
+            <div class="turn" data-v-in data-v-in-self>
+              <span class="v-label">So we do it the other way round</span>
+              <p class="turn__text"><b>The menu comes first</b>, with descriptions and prices. Events and Happy Hour are on one board. Address, hours and map are one tap away.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3 · CHOICE: three courses, the dish photo follows. Dishes are placeholders: the menu comes from the restaurant -->
+    <section id="menu" data-v-act="pin" data-v-span="2.4" data-v-drift="#17211f" aria-label="Menu">
+      <div data-v-stage>
+        <div class="mas">
+          <div class="mas__head" data-v-cue="0 1 0 0" data-v-rise="0">
+            <div>
+              <span class="v-label">Menu</span>
+              <h2 class="v-display v-display--md">Three courses, in the order you eat them</h2>
+            </div>
+            <ol class="mas__index" aria-hidden="true">
+              <li style="--a: 0; --b: .35">1</li>
+              <li style="--a: .34; --b: .69">2</li>
+              <li style="--a: .68; --b: 1">3</li>
+            </ol>
+          </div>
+          <div class="mas__body">
+            <div class="mas__copy">
+              <article class="mas__one" data-v-cue="0 0.36 0 0.06">
+                <span class="v-label">First course</span>
+                <h3 class="v-display v-display--lg">Starters</h3>
+                <ul class="dishes">
+                  <li class="dish"><b>Cured fish with lemon</b><em>ask</em><span>Thin slices, olive oil, herbs, flaky salt.</span></li>
+                  <li class="dish"><b>Seasonal soup</b><em>ask</em><span>Made from what is fresh this week. Ask for today's.</span></li>
+                  <li class="dish"><b>Grilled bread and dips</b><em>ask</em><span>Warm bread, two dips of the day, olives.</span></li>
+                </ul>
+                <div class="mas__cta">
+                  <a class="v-btn" href="{{booking-link}}" target="_blank" rel="noopener">Book a table</a>
+                </div>
+              </article>
+              <article class="mas__one" data-v-cue="0.34 0.7 0.06 0.06">
+                <span class="v-label">Second course</span>
+                <h3 class="v-display v-display--lg">Mains</h3>
+                <ul class="dishes">
+                  <li class="dish"><b>Grilled white fish</b><em>ask</em><span>Crisp skin, small potatoes, green herb oil.</span></li>
+                  <li class="dish"><b>Slow-cooked beef</b><em>ask</em><span>Soft mash, pan juices, pickled onion.</span></li>
+                  <li class="dish"><b>Garden pasta</b><em>ask</em><span>Seasonal vegetables, olive oil, hard cheese.</span></li>
+                </ul>
+                <div class="mas__cta">
+                  <a class="v-btn" href="{{booking-link}}" target="_blank" rel="noopener">Book a table</a>
+                </div>
+              </article>
+              <article class="mas__one" data-v-cue="0.68 1 0.06 0">
+                <span class="v-label">To finish</span>
+                <h3 class="v-display v-display--lg">Sweets and drinks</h3>
+                <ul class="dishes">
+                  <li class="dish"><b>Baked custard tart</b><em>ask</em><span>Glossy top, berries on the side.</span></li>
+                  <li class="dish"><b>Lemon sparkler</b><em>ask</em><span>Fresh lemon, mint, ice. Without alcohol.</span></li>
+                  <li class="dish"><b>Coffee and tea</b><em>ask</em><span>Ask for today's selection.</span></li>
+                </ul>
+                <div class="mas__cta">
+                  <a class="v-btn" href="{{booking-link}}" target="_blank" rel="noopener">Book a table</a>
+                </div>
+              </article>
+            </div>
+            <div class="mas__fig">
+              <figure data-v-cue="0 0.36 0 0.06" data-v-rise="0">
+                <img src="assets/starter.webp" srcset="assets/starter-480.webp 480w, assets/starter.webp 900w" sizes="(max-width: 860px) 100vw, 30rem" alt="Cured fish with lemon and grilled bread on a sea-green plate" width="900" height="1200" loading="lazy" decoding="async">
+              </figure>
+              <figure data-v-cue="0.34 0.7 0.06 0.06" data-v-rise="0">
+                <img src="assets/main.webp" srcset="assets/main-480.webp 480w, assets/main.webp 900w" sizes="(max-width: 860px) 100vw, 30rem" alt="Grilled white fish with potatoes and herb oil in a wide bowl" width="900" height="1200" loading="lazy" decoding="async">
+              </figure>
+              <figure data-v-cue="0.68 1 0.06 0" data-v-rise="0">
+                <img src="assets/sweet.webp" srcset="assets/sweet-480.webp 480w, assets/sweet.webp 900w" sizes="(max-width: 860px) 100vw, 30rem" alt="Baked custard tart with berries and a glass of sparkling lemon drink" width="900" height="1200" loading="lazy" decoding="async">
+              </figure>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4 · ON THE BOARD: Happy Hour and events (dates and hours are the restaurant's own) -->
+    <section class="v-section" data-v-act="flow" data-v-drift="#1c2926" id="events" aria-label="Happy Hour and events">
+      <div class="v-wrap prices">
+        <div>
+          <div class="prices__head" data-v-in data-v-stagger="60">
+            <span class="v-label">On the board</span>
+            <h2 class="v-display v-display--lg">What is on this week</h2>
+            <p class="v-body v-soft">Happy Hour and events are posted here by the restaurant, so the board is never older than the week.</p>
+          </div>
+          <ul class="plist" data-v-in data-v-stagger="50">
+            <li><span class="name">Happy Hour</span><span class="time">{{days and hours}}</span><span class="note">Selected drinks and light bites. Details are posted here.</span></li>
+            <li><span class="name">Music evenings</span><span class="time">{{day}}</span><span class="note">Live music in the dining room. Book ahead for the evening.</span></li>
+            <li><span class="name">Chef's special</span><span class="time">{{day}}</span><span class="note">A dish that is not on the main menu, for one night.</span></li>
+            <li><span class="name">Private events</span><span class="time">On request</span><span class="note">Birthdays and groups. Send the date and the number of guests.</span></li>
+          </ul>
+        </div>
+        <aside class="prices__aside" data-v-in data-v-in-self>
+          <div class="incl" data-v-tilt="5">
+            <span class="v-label">Plan your evening</span>
+            <ul>
+              <li><b>Check the menu</b><span>Courses, descriptions and prices.</span></li>
+              <li><b>See what is on</b><span>Happy Hour hours and this week's events.</span></li>
+              <li><b>Book a table</b><span>One message or one call.</span></li>
+            </ul>
+            <div class="cta">
+              <a class="v-btn" href="{{booking-link}}" target="_blank" rel="noopener">Book a table</a>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- 5 · INSIDE: the room after dark -->
+    <section class="v-section" data-v-act="flow" data-v-drift="#17211f" id="inside" aria-label="Inside the restaurant">
+      <div class="v-wrap">
+        <figure class="atm__fig">
+          <div class="v-layer" data-v-parallax="0.4">
+            <img src="assets/room.webp" srcset="assets/room-900.webp 900w, assets/room.webp 1536w" sizes="(max-width: 860px) 100vw, 76rem" alt="The dining room in warm evening light: set tables, green velvet chairs and sofas, hanging lamps and tall windows" width="1536" height="1024" loading="lazy" decoding="async">
+          </div>
+        </figure>
+        <div class="atm">
+          <div class="atm__head" data-v-in data-v-stagger="60">
+            <span class="v-label">Inside</span>
+            <h2 class="v-display v-display--md">The room, as you will find it</h2>
+            <p>The dining room by day and by evening. Pick the table you want when you book.</p>
+          </div>
+          <ul data-v-in data-v-stagger="80">
+            <li class="fact"><b>Dining room</b><span>Round tables and natural light by day, lamps once the evening starts.</span></li>
+            <li class="fact"><b>Your table</b><span>Tell us the day, the time and how many of you. We confirm it in one reply.</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6 · ACTION: book a table. Reviews are not shown: no real ones in the brief -->
+    <section data-v-act="pin" data-v-span="1.3" data-v-drift="#17211f" id="book" aria-label="Book a table">
+      <div data-v-stage>
+        <div class="close" data-v-spotlight>
+          <div class="close__inner">
+            <div data-v-cue="0.04">
+              <h2 class="v-display v-display--lg">Pick a day, we hold the table</h2>
+              <p class="v-lede">Send the date, the time and the number of guests. Prefer to talk? Call us.</p>
+              <div class="close__cta">
+                <a class="v-btn" href="{{booking-link}}" target="_blank" rel="noopener" data-v-magnet="0.22" data-v-rise="0">Book a table</a>
+                <a class="close__tel" href="tel:{{phone}}">{{phone}}</a>
+              </div>
+              <p class="close__hint">We reply during opening hours. If your day is full, we offer the nearest free evening.</p>
+            </div>
+            <div class="close__meta" data-v-cue="0.1">
+              <span><b>Opening hours</b>{{hours}}</span>
+              <span><b>Address</b>{{address}}, {{city}}</span>
+              <span><b>Find us</b><a href="{{map-link}}" target="_blank" rel="noopener">{{company}} on the map</a></span>
+            </div>
+          </div>
+          <footer class="foot">
+            <span>{{company}} · {{city}}</span>
+            <span data-slot-optional>{{legal entity}}</span>
+            <span class="foot__more">Menu, Happy Hour, events and table booking</span>
+          </footer>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script src="vibe.js"></script>
+<script>
+  // On phones the pins are shorter: data-v-span cannot be changed from CSS, so the attribute is set before mount.
+  if (window.matchMedia('(max-width: 860px)').matches) {
+    document.getElementById('top').setAttribute('data-v-span', '2.6');
+    document.getElementById('menu').setAttribute('data-v-span', '2.2');
+  }
+  Vibe.mount(document.querySelector('.v-page'));
+
+  // Bar: backing after 40 px of scroll, so section text does not show through.
+  (function () {
+    var bar = document.querySelector('.bar'), on = null;
+    function tick() { var s = window.scrollY > 40; if (s !== on) { on = s; bar.classList.toggle('is-scrolled', s); } }
+    window.addEventListener('scroll', tick, { passive: true }); tick();
+  })();
+
+  // Signature move "the room moves through the day": light layers, marker and windows live in CSS from --v-p;
+  // the script only sets the clock (opening to closing, 15-minute steps) and the day part word.
+  (function () {
+    var act = document.getElementById('top'), clock = act.querySelector('.clock');
+    var out = clock.querySelector('[data-clock]'), part = clock.querySelector('[data-daypart]');
+    var open = parseFloat(clock.getAttribute('data-open')) || 9, close = parseFloat(clock.getAttribute('data-close')) || 22;
+    var pad = function (n) { return (n < 10 ? '0' : '') + n; };
+    var hm = function (h) { var m = Math.round(h * 4) * 15; return pad(Math.floor(m / 60)) + ':' + pad(m % 60); };
+    clock.querySelector('[data-open-label]').textContent = hm(open);
+    clock.querySelector('[data-close-label]').textContent = hm(close);
+    var last = '', live = false;
+    function tick() {
+      var p = parseFloat(getComputedStyle(act).getPropertyValue('--v-p')) || 0;
+      var t = hm(open + (close - open) * p), d = p < 0.33 ? 'morning' : p < 0.66 ? 'midday' : 'evening';
+      if (t + d !== last) { last = t + d; out.textContent = t; part.textContent = d; }
+      if (live) requestAnimationFrame(tick);
+    }
+    new IntersectionObserver(function (es) { live = es[0].isIntersecting; if (live) tick(); }).observe(act);
+    tick();
+  })();
+</script>
+</body>
+</html>
